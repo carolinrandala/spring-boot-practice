@@ -26,4 +26,6 @@ public class Student extends Auditable<String> implements Serializable {
     private float grade;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Course> courses;
+
+    private boolean isActive;
 }

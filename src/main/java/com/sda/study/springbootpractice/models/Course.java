@@ -26,4 +26,6 @@ public class Course extends Auditable<String> implements Serializable {
     private int durationInDays;
     @OneToOne(cascade = CascadeType.MERGE)
     private School school;
+
+    private boolean isActive;
 }

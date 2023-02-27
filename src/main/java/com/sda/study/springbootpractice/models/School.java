@@ -24,6 +24,5 @@ public class School extends Auditable<String> implements Serializable {
     private String name;
     private String address;
     private String phone;
-
-
+    private boolean isActive;
 }
