@@ -24,7 +24,7 @@ public class Student extends Auditable<String> implements Serializable {
     private Gender gender;
     private String email;
     private float grade;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.MERGE)
     private List<Course> courses;
 
     private boolean isActive;

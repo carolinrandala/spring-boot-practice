@@ -1,5 +1,6 @@
 package com.sda.study.springbootpractice.services;
 
+import com.sda.study.springbootpractice.exceptions.CourseNotFoundException;
 import com.sda.study.springbootpractice.exceptions.SchoolNotFoundException;
 import com.sda.study.springbootpractice.models.School;
 
@@ -56,7 +57,7 @@ public interface SchoolService {
      * To delete existing School by ID
      * @param id School ID
      */
-    void deleteSchoolById(Long id) throws SchoolNotFoundException;
+    void deleteSchoolById(Long id) throws SchoolNotFoundException, CourseNotFoundException;
 
     // RESTORE METHOD
 
@@ -64,5 +65,5 @@ public interface SchoolService {
      * To restore school by ID
      * @param id School ID
      */
-    void restoreSchoolById(Long id) throws SchoolNotFoundException;
+    void restoreSchoolById(Long id) throws SchoolNotFoundException, CourseNotFoundException;
 }
