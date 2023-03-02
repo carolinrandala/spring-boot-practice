@@ -6,6 +6,7 @@
     <title>School list</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 </head>
 <body>
 <div class="container-fluid">
@@ -13,12 +14,24 @@
     <div th:replace="fragments/navbar"></div>
     <div class="container">
         <h1 class="fw-bold">School list</h1>
-        <table class="table table-dark">
+
+        <div class="alert alert-success" role="alert" th:if="${messageType} == 'success'">
+            <span th:text="${message}"></span>
+        </div>
+        <div class="alert alert-danger" role="alert" th:if="${messageType} == 'error'">
+            <span th:text="${message}"></span>
+        </div>
+        <div class="alert alert-info" role="alert" th:if="${schools.size() == 0}">
+            No schools found!
+        </div>
+        <!--to check if table has data, if not it will not display at all-->
+        <table class="table table-dark" th:if="${schools.size() > 0}">
             <thead>
             <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Address</th>
             <th scope="col">Phone</th>
+            <th scope="col">Actions</th>
 
             </thead>
             <tbody>
@@ -33,6 +46,17 @@
                 <td th:text="${school.name}"></td>
                 <td th:text="${school.address}"></td>
                 <td th:text="${school.phone}"></td>
+                <td>
+                    <a class="btn btn-danger" role="button" th:href="@{/school/delete/{id}(id=${school.id})}"
+                       th:if="${school.isActive()}"> <!--only if school is active the trash-bin will appear-->
+                    <i class="bi bi-trash2-fill"></i>
+                    </a>
+                    <a class="btn btn-success" role="button" th:href="@{/school/restore/{id}(id=${school.id})}"
+                       th:if="${!school.isActive()}"> <!--only if school is active the trash-bin will appear-->
+                        <i class="bi bi-arrow-counterclockwise"></i>
+                    </a>
+
+                </td>
             </tr>
             </tbody>
         </table>
