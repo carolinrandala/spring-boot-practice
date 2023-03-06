@@ -13,7 +13,6 @@
     <div th:replace="fragments/navbar"></div>
     <div class="container">
         <h3 class="fw-bold" >Create school</h3>
-
         <div class="form-floating mb-3">
             <input type="text" class="form-control" id="name" >
             <label for="name">Name:</label>
@@ -24,14 +23,16 @@
         </div>
         <br/>
         <div class="form-floating">
-            <input type="text" class="form-control" id="phone">
+            <input type="text" class="form-control" id="phone" >
             <label for="phone">Phone:</label>
         </div>
-        <br/>
-        <button type="submit" class="btn btn-outline-primary">Submit</button>
+
     </div>
     <a class="btn btn-outline-primary" href="/school" role="button">Back</a>
+    <button type="submit" class="btn btn-outline-primary">Submit</button>
+
 </div>
+
 
 <!--importing script-fragments-->
 

@@ -67,26 +67,37 @@ public class SchoolController {
     }
 
 
-    @PostMapping("/create")
-    public String createSchool(RedirectAttributes redirectAttributes) {
-        try {
-            schoolService.createSchool(new School());
-            redirectAttributes.addFlashAttribute("message", "School is successfully created");
-            redirectAttributes.addFlashAttribute("messageType", "success");
-        } catch (Exception e) {
-            return handleException(redirectAttributes, e);
-        }
-        return "redirect:/school";
+    @GetMapping("/create/{id}")
+    public String createSchoolPage(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+
+        schoolService.createSchool(new School());
+        redirectAttributes.addFlashAttribute("message", String.format("School #name=%s created successfully", id));
+        redirectAttributes.addFlashAttribute("messageType", "success");
+        return "/school/create-school";
+
     }
 
-
-    @PostMapping("/update/{id}")
-    public String updateSchool(School school, @PathVariable Long id,  RedirectAttributes redirectAttributes) {
+    /*
+    @GetMapping("/update/{id}")
+    public String updateSchool(@ModelAttribute School school, @PathVariable Long id,  RedirectAttributes redirectAttributes) {
         try {
             schoolService.updateSchool(school);
             redirectAttributes.addFlashAttribute("message", String.format("School #%d is updated successfully!", id));
             redirectAttributes.addFlashAttribute("messageType", "success");
-            return "redirect:/school";
+            return "redirect:/school-update";
+        } catch (SchoolNotFoundException e) {
+            return handleException(redirectAttributes, e);
+        }
+    }
+
+     */
+    @GetMapping("/update/{name}")
+    public String updateSchoolPage(@PathVariable String name, RedirectAttributes redirectAttributes) {
+        try {
+            schoolService.updateSchool(schoolService.findSchoolByName(name));
+            redirectAttributes.addFlashAttribute("message", String.format("School #name=%s updated successfully", name));
+            redirectAttributes.addFlashAttribute("messageType", "success");
+            return "/school/update-school";
         } catch (SchoolNotFoundException e) {
             return handleException(redirectAttributes, e);
         }

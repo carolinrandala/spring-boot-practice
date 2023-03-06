@@ -46,11 +46,7 @@
                        th:if="${!school.isActive()}">
                         <i class="bi bi-arrow-counterclockwise"></i>
                     </a>
-                    <a class="btn btn-outline-primary" role="button" th:href="@{/school/create}"
-                       th:if="${!school.isActive() || school.isActive()}">
-                        <i class="bi bi-house-add-fill"></i>
-                    </a>
-                    <a class="btn btn-outline-secondary" role="button" th:href="@{/school/update/{id}(id=${school.id})}"
+                    <a class="btn btn-outline-secondary" role="button" th:href="@{/school/update/{name}(name=${school.name})}"
                        th:if="${!school.isActive() || school.isActive()}">
                         <i class="bi bi-house-gear-fill"></i>
                     </a>
@@ -59,6 +55,9 @@
             </tr>
             </tbody>
         </table>
+        <a  th:each="school: ${schools}" class="btn btn-outline-primary" role="button" th:href="@{/school/create/{id}(id=${school.id})}">
+            <i class="bi bi-house-add-fill"></i>
+        </a>
 
     </div>
 
