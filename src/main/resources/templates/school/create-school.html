@@ -13,23 +13,33 @@
     <div th:replace="fragments/navbar"></div>
     <div class="container">
         <h3 class="fw-bold" >Create school</h3>
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="name" >
-            <label for="name">Name:</label>
-        </div>
-        <div class="form-floating">
-            <input type="text" class="form-control" id="address" >
-            <label for="address">Address:</label>
-        </div>
-        <br/>
-        <div class="form-floating">
-            <input type="text" class="form-control" id="phone" >
-            <label for="phone">Phone:</label>
+
+        <div class="alert alert-danger" role="alert" th:if="${messageType} == 'error'">
+            <span th:text="${message}"></span>
         </div>
 
+        <form action="#" th:action="@{/school}" method="post" th:object="${school}">
+        <div class="input-group">
+            <span class="input-group-text" >Name</span>
+            <input type="text" aria-label="Name" class="form-control" th:field="*{name}" required>
+        </div>
+            <br/>
+        <div class="input-group">
+            <span class="input-group-text" >Address</span>
+            <input type="text" aria-label="Address" class="form-control" th:field="*{address}" required>
+        </div>
+            <br/>
+        <div class="input-group">
+            <span class="input-group-text" >Phone</span>
+            <input type="text" aria-label="Phone" class="form-control"th:field="*{phone}" required>
+        </div>
+            <br/>
+            <a class="btn btn-outline-primary" href="/school" role="button">Cancel</a>
+            <button type="submit" class="btn btn-outline-primary">Submit</button>
+        </form>
     </div>
-    <a class="btn btn-outline-primary" href="/school" role="button">Back</a>
-    <button type="submit" class="btn btn-outline-primary">Submit</button>
+
+
 
 </div>
 

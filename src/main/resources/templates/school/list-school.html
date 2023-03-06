@@ -15,6 +15,19 @@
     <div class="container">
         <h1 class="fw-bold">School list</h1>
 
+        <div class="alert alert-success" role="alert" th:if="${messageType} == 'success'">
+            <span th:text="${message}"></span>
+        </div>
+        <div class="alert alert-danger" role="alert" th:if="${messageType} == 'error'">
+            <span th:text="${message}"></span>
+        </div>
+        <div class="alert alert-info" role="alert" th:if="${schools.size() == 0}">
+            No schools found!
+        </div>
+        <a class="btn btn-success" href="/school/create" role="button">Add school</a>
+        <br/>
+
+
         <!--to check if table has data, if not it will not display at all-->
         <table class="table table-dark" th:if="${schools.size() > 0}">
             <thead>
@@ -38,6 +51,10 @@
                 <td th:text="${school.address}"></td>
                 <td th:text="${school.phone}"></td>
                 <td>
+                    <a class="btn btn-outline-primary" role="button" th:href="@{/school/update/{id}(id=${school.id})}"
+                       th:if="${school.isActive()}">
+                        <i class="bi bi-house-add-fill"></i>
+                    </a>
                     <a class="btn btn-danger" role="button" th:href="@{/school/delete/{id}(id=${school.id})}"
                        th:if="${school.isActive()}"> <!--only if school is active the trash-bin will appear-->
                     <i class="bi bi-trash2-fill"></i>
@@ -46,18 +63,13 @@
                        th:if="${!school.isActive()}">
                         <i class="bi bi-arrow-counterclockwise"></i>
                     </a>
-                    <a class="btn btn-outline-secondary" role="button" th:href="@{/school/update/{name}(name=${school.name})}"
-                       th:if="${!school.isActive() || school.isActive()}">
-                        <i class="bi bi-house-gear-fill"></i>
-                    </a>
+
 
                 </td>
             </tr>
             </tbody>
         </table>
-        <a  th:each="school: ${schools}" class="btn btn-outline-primary" role="button" th:href="@{/school/create/{id}(id=${school.id})}">
-            <i class="bi bi-house-add-fill"></i>
-        </a>
+
 
     </div>
 
