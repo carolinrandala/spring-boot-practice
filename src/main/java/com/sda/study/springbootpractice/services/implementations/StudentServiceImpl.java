@@ -1,9 +1,13 @@
 package com.sda.study.springbootpractice.services.implementations;
 
+import com.sda.study.springbootpractice.exceptions.CourseNotFoundException;
 import com.sda.study.springbootpractice.exceptions.StudentNotFoundException;
+import com.sda.study.springbootpractice.models.Course;
 import com.sda.study.springbootpractice.models.School;
 import com.sda.study.springbootpractice.models.Student;
 import com.sda.study.springbootpractice.repositories.StudentRepository;
+import com.sda.study.springbootpractice.services.CourseService;
+import com.sda.study.springbootpractice.services.SchoolService;
 import com.sda.study.springbootpractice.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +22,14 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
+    @Autowired
+    private CourseService courseService;
+
     @Override
-    public void createStudent(Student student) {
+    public void createStudent(Student student) throws CourseNotFoundException {
+        for (Course course: student.getCourses()) {
+            courseService.findCourseById(course.getId());
+        }
         student.setActive(true);
         studentRepository.save(student);
     }

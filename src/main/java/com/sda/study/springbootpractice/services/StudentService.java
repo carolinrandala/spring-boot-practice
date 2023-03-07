@@ -1,5 +1,6 @@
 package com.sda.study.springbootpractice.services;
 
+import com.sda.study.springbootpractice.exceptions.CourseNotFoundException;
 import com.sda.study.springbootpractice.exceptions.StudentNotFoundException;
 import com.sda.study.springbootpractice.models.School;
 import com.sda.study.springbootpractice.models.Student;
@@ -16,7 +17,7 @@ public interface StudentService {
      *
      * @param student Student
      */
-    void createStudent(Student student);
+    void createStudent(Student student) throws CourseNotFoundException;
 
     /**
      * To find a student by ID
