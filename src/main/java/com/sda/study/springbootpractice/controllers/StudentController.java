@@ -1,6 +1,5 @@
 package com.sda.study.springbootpractice.controllers;
 
-import com.sda.study.springbootpractice.exceptions.CourseNotFoundException;
 import com.sda.study.springbootpractice.exceptions.StudentNotFoundException;
 import com.sda.study.springbootpractice.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
