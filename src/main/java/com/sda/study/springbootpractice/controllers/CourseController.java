@@ -1,9 +1,7 @@
 package com.sda.study.springbootpractice.controllers;
 
 import com.sda.study.springbootpractice.exceptions.CourseNotFoundException;
-import com.sda.study.springbootpractice.exceptions.SchoolNotFoundException;
 import com.sda.study.springbootpractice.models.Course;
-import com.sda.study.springbootpractice.models.School;
 import com.sda.study.springbootpractice.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

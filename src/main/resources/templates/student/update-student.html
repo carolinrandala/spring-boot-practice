@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--to make application work in all devices-->
-    <title>Create student</title>
+    <title>Update student</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
@@ -12,13 +12,9 @@
 <div class="container-fluid">
     <div th:replace="fragments/navbar"></div>
     <div class="container">
-        <h3 class="fw-bold" >Create student</h3>
+        <h3 class="fw-bold" >Update student</h3>
 
-        <div class="alert alert-danger" role="alert" th:if="${messageType} == 'error'">
-            <span th:text="${message}"></span>
-        </div>
-
-        <form action="#" th:action="@{/student}" method="post" th:object="${student}">
+        <form action="#" th:action="@{/student/update}" method="post" th:object="${student}">
             <div class="input-group">
                 <span class="input-group-text" >Name</span>
                 <input type="text" aria-label="Name" class="form-control" th:field="*{name}" required>
@@ -26,35 +22,33 @@
             <br/>
             <div class="input-group">
                 <span class="input-group-text" >Age</span>
-                <input type="text" aria-label="age" class="form-control" th:field="*{age}" required >
+                <input type="text" aria-label="Age" class="form-control" th:field="*{age}" required >
             </div>
             <br/>
             <div class="input-group">
                 <span class="input-group-text" >Gender</span>
-                <input type="text" aria-label="gender" class="form-control" th:field="*{gender}" required>
+                <input type="text" aria-label="Gender" class="form-control" th:field="*{gender}" required>
             </div>
             <br/>
             <div class="input-group">
                 <span class="input-group-text" >Email</span>
-                <input type="text" aria-label="email" class="form-control"th:field="*{email}" required >
+                <input type="text" aria-label="Email" class="form-control"th:field="*{email}" required >
             </div>
             <br/>
             <div class="input-group">
                 <span class="input-group-text" >Grade</span>
-                <input type="text" aria-label="grade" class="form-control"th:field="*{grade}" required >
+                <input type="text" aria-label="Grade" class="form-control"th:field="*{grade}" required >
             </div>
             <br/>
             <div class="input-group">
                 <span class="input-group-text" >Courses</span>
-                <input type="text" aria-label="courses" class="form-control"th:field="*{courses.size()}" required >
+                <input type="text" aria-label="Courses" class="form-control"th:field="*{courses.size()}" required >
             </div>
             <br/>
             <a class="btn btn-outline-primary" href="/student" role="button">Cancel</a>
             <button type="submit" class="btn btn-outline-primary">Submit</button>
         </form>
     </div>
-
-
 
 </div>
 
