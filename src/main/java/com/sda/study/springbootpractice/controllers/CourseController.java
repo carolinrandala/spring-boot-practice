@@ -78,7 +78,7 @@ public class CourseController {
 
     @GetMapping("/update/{id}")
     public String showUpdateCoursePage(@PathVariable Long id, RedirectAttributes redirectAttributes,
-                                       @RequestParam(value = "course", required = false) Course course, // only if you update the record
+                                       @RequestParam(value = "course", required = false) Course course,
                                        Model model){
         if (course == null) {
             try {
