@@ -69,7 +69,7 @@ public class StudentController {
         return "student/create-student";
     }
 
-
+/*
     @PostMapping
     public String createStudentPage(Student student, RedirectAttributes redirectAttributes) {
         try {
@@ -84,6 +84,8 @@ public class StudentController {
             return "redirect:/student";
         }
     }
+
+ */
 
     @GetMapping("/update/{id}")
     public String showUpdateStudentPage(@PathVariable Long id, RedirectAttributes redirectAttributes,
