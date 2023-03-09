@@ -1,5 +1,6 @@
 package com.sda.study.springbootpractice.controllers;
 
+import com.sda.study.springbootpractice.exceptions.CourseNotFoundException;
 import com.sda.study.springbootpractice.exceptions.StudentNotFoundException;
 import com.sda.study.springbootpractice.models.Course;
 import com.sda.study.springbootpractice.models.Student;
@@ -92,9 +93,9 @@ public class StudentController {
     }
 
     @GetMapping("/update/{id}")
-    public String showUpdateStudentPage(@PathVariable Long id, RedirectAttributes redirectAttributes,
+    public String showUpdateStudentPage(@PathVariable Long id, Course course, RedirectAttributes redirectAttributes,
                                        @RequestParam(value = "student", required = false) Student student, // only if you update the record
-                                       Model model){
+                                       Model model)  {
         if (student == null) {
             try {
                 model.addAttribute("student", studentService.findStudentById(id));
