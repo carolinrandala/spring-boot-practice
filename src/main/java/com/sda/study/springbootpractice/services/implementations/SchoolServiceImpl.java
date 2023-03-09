@@ -22,11 +22,10 @@ import java.util.Optional;
  *
  */
 @Service
-@Transactional // it will make database operations smoother
-
+@Transactional
 public class SchoolServiceImpl implements SchoolService {
     @Autowired
-    private SchoolRepository schoolRepository; // we are going to use it in our methods to make operations
+    private SchoolRepository schoolRepository;
 
     @Autowired
     private CourseService courseService;
@@ -34,26 +33,28 @@ public class SchoolServiceImpl implements SchoolService {
     @Override
     public void createSchool(School school) {
         school.setActive(true);
-        schoolRepository.save(school); // saves a new record in database
-
+        schoolRepository.save(school);
     }
+
     @Override
     public School findSchoolById(Long id) throws SchoolNotFoundException {
-        Optional<School> optionalSchool = schoolRepository.findById(id);
+        Optional<School> schoolOptional = schoolRepository.findById(id);
 
-        if(optionalSchool.isEmpty()) {
+        if(schoolOptional.isEmpty()) {
             throw new SchoolNotFoundException(id);
         }
-        return optionalSchool.get();
+
+        return schoolOptional.get();
     }
 
     @Override
     public School findSchoolByName(String name) throws SchoolNotFoundException {
         Optional<School> schoolOptional = schoolRepository.findByName(name);
 
-        if (schoolOptional.isEmpty()) {
+        if(schoolOptional.isEmpty()) {
             throw new SchoolNotFoundException(name);
         }
+
         return schoolOptional.get();
     }
 
@@ -64,33 +65,33 @@ public class SchoolServiceImpl implements SchoolService {
 
     @Override
     public void updateSchool(School school) throws SchoolNotFoundException {
-        if (findSchoolById(school.getId()) != null) {
-            schoolRepository.saveAndFlush(school); // save and flush to update data immediately to the database
+        if(findSchoolById(school.getId()) != null) {
+            schoolRepository.saveAndFlush(school);
         }
     }
 
     @Override
-        public void deleteSchoolById(Long id) throws SchoolNotFoundException, CourseNotFoundException {
-            School school = findSchoolById(id);
-            // schoolRepository.delete(school); // To delete the record completely from the repo
-            school.setActive(false);
-            schoolRepository.saveAndFlush(school);
+    public void deleteSchoolById(Long id) throws SchoolNotFoundException, CourseNotFoundException {
+        School school = findSchoolById(id);
+        // schoolRepository.delete(school); // To delete the record completely from the repo
+        school.setActive(false);
+        schoolRepository.saveAndFlush(school);
 
-            // Find all the course belong to the school and delete the respective courses
-            for (Course course: courseService.findAllCoursesBySchool(school)) {
-                courseService.deleteCourseById(course.getId());
-            }
+        // Find all the course belong to the school and delete the respective courses
+        for (Course course: courseService.findAllCoursesBySchool(school)) {
+            courseService.deleteCourseById(course.getId());
         }
+    }
 
-        @Override
-            public void restoreSchoolById(Long id) throws SchoolNotFoundException, CourseNotFoundException {
-                School school = findSchoolById(id);
-                school.setActive(true);
-                schoolRepository.saveAndFlush(school);
+    @Override
+    public void restoreSchoolById(Long id) throws SchoolNotFoundException, CourseNotFoundException {
+        School school = findSchoolById(id);
+        school.setActive(true);
+        schoolRepository.saveAndFlush(school);
 
-                // Find all the course belong to the school and restore the respective courses
-                for (Course course: courseService.findAllCoursesBySchool(school)) {
-                    courseService.restoreCourseById(course.getId());
-                }
-            }
+        // Find all the course belong to the school and restore the respective courses
+        for (Course course: courseService.findAllCoursesBySchool(school)) {
+            courseService.restoreCourseById(course.getId());
         }
+    }
+}

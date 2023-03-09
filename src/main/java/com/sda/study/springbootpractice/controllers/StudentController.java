@@ -1,7 +1,9 @@
 package com.sda.study.springbootpractice.controllers;
 
 import com.sda.study.springbootpractice.exceptions.StudentNotFoundException;
+import com.sda.study.springbootpractice.models.Course;
 import com.sda.study.springbootpractice.models.Student;
+import com.sda.study.springbootpractice.services.CourseService;
 import com.sda.study.springbootpractice.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,9 @@ public class StudentController {
 
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private CourseService courseService;
 
     @GetMapping
     public String showStudentListPage(Model model, @ModelAttribute("message")String message, @ModelAttribute("messageType") String messageType) { // to send data always need model
@@ -71,7 +76,7 @@ public class StudentController {
 
 
     @PostMapping
-    public String createStudentPage(Student student, RedirectAttributes redirectAttributes) {
+    public String createStudentPage(Student student, Course course, RedirectAttributes redirectAttributes) {
         try {
             Student searchStudent = studentService.findStudentByName(student.getName());
             redirectAttributes.addFlashAttribute("message", String.format("Student (%s) already exists!", student.getName()));
@@ -79,6 +84,7 @@ public class StudentController {
             return "redirect:/student/create-student";
         } catch (StudentNotFoundException e) {
             studentService.createStudent(student);
+            student.setCourses(courseService.findAllCourses());
             redirectAttributes.addFlashAttribute("message", String.format("Student (%s) has been created successfully!", student.getName()));
             redirectAttributes.addFlashAttribute("messageType", "success");
             return "redirect:/student";
