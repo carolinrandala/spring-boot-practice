@@ -1,5 +1,6 @@
 package com.sda.study.springbootpractice.controllers;
 
+import com.sda.study.springbootpractice.exceptions.CourseNotFoundException;
 import com.sda.study.springbootpractice.exceptions.StudentNotFoundException;
 import com.sda.study.springbootpractice.models.Student;
 import com.sda.study.springbootpractice.services.StudentService;
@@ -69,9 +70,9 @@ public class StudentController {
         return "student/create-student";
     }
 
-/*
+
     @PostMapping
-    public String createStudentPage(Student student, RedirectAttributes redirectAttributes) {
+    public String createStudentPage(Student student, RedirectAttributes redirectAttributes) throws CourseNotFoundException {
         try {
             Student searchStudent = studentService.findStudentByName(student.getName());
             redirectAttributes.addFlashAttribute("message", String.format("Student (%s) already exists!", student.getName()));
@@ -85,7 +86,7 @@ public class StudentController {
         }
     }
 
- */
+
 
     @GetMapping("/update/{id}")
     public String showUpdateStudentPage(@PathVariable Long id, RedirectAttributes redirectAttributes,
