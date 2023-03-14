@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UserController {
     @Autowired
     private UserService userService;
+
     @Autowired
     private AuthorityService authorityService;
 
@@ -31,7 +32,7 @@ public class UserController {
     }
 
     @GetMapping("/signup")
-    public String showSignUpPage(Model model, @ModelAttribute("user") User user, @ModelAttribute("message") String message,
+    public String showSignupPage(Model model, @ModelAttribute("user") User user, @ModelAttribute("message") String message,
                                  @ModelAttribute("messageType") String messageType) {
         model.addAttribute("authorities", authorityService.findAllAuthorities());
         return "user/create-user";
@@ -41,10 +42,11 @@ public class UserController {
     public String createUser(User user, RedirectAttributes redirectAttributes) {
         try {
             userService.findUserByUsername(user.getUserName());
-            redirectAttributes.addFlashAttribute("message", String.format("User (%s) already exists!", user.getUserName()));
+            redirectAttributes.addFlashAttribute("message", String.format("User(%s) already exists!", user.getUserName()));
             redirectAttributes.addFlashAttribute("messageType", "error");
             return "redirect:/school/signup";
         } catch (UserNotFoundException e) {
+            userService.createUser(user);
             redirectAttributes.addFlashAttribute("message", "Signup successful!");
             redirectAttributes.addFlashAttribute("messageType", "success");
             return "redirect:/";

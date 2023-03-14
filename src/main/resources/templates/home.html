@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,8 +13,13 @@
     <div class="container py-4">
         <div class="p-5 mb-4 bg-light rounded-3">
             <div class="container-fluid py-5">
-                <h1 class="display-5 fw-bold">Welcome!</h1>
+                <h1 sec:authorize="isAuthenticated()" class="display-5 fw-bold">Welcome! <span th:text="${#authentication.name}"></span></h1>
                 <p class="col-md-8 fs-4">Study Info system is the centralized system for teacher and students</p>
+            </div>
+
+            <div sec:authorize="!isAuthenticated()">
+                <a class="btn btn-primary" href="/login" role="button">Login</a>
+                <a class="btn btn-success" href="/user/signup" role="button">Signup</a>
             </div>
         </div>
     </div>

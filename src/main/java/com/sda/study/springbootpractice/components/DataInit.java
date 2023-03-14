@@ -3,10 +3,10 @@ package com.sda.study.springbootpractice.components;
 import com.sda.study.springbootpractice.exceptions.*;
 import com.sda.study.springbootpractice.models.*;
 import com.sda.study.springbootpractice.services.*;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
@@ -33,8 +33,8 @@ public class DataInit {
     @Autowired
     private UserService userService;
 
-    @PostConstruct // this method will be executed automatically when application will start
-    public void init() throws CourseNotFoundException, SchoolNotFoundException {
+    @PostConstruct
+    public void init() {
         initSchool();
         initCourse();
         initTeacher();

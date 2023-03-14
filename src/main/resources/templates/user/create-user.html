@@ -2,9 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 </head>
 <body>
+<div class="container-fluid">
+    <div th:replace="fragments/navbar"></div>
+    <div class="container py-4">
+        <div class="p-5 mb-4 bg-light rounded-3">
+            <div class="container-fluid py-5">
+                <h1 class="display-5 fw-bold">Signup</h1>
+                <div class="alert alert-danger" role="alert" th:if="${messageType} == 'error'">
+                    <span th:text="${message}"></span>
+                </div>
+                <div class="alert alert-danger" role="alert" th:if="${authorities.size()} == 0">
+                    <span>Signup unavailable!</span>
+                </div>
 
+                <form action="#" method="post" th:action="@{/user/signup}" th:object="${user}">
+                    <div class="form-group mb-3">
+                        <label for="username">Username</label>
+                        <input class="form-control" id="username" th:field="*{userName}" type="text" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="password">Password</label>
+                        <input class="form-control" id="password" th:field="*{password}" type="password" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <select class="form-select" aria-label="authorities" th:field="*{authority.id}">
+                            <option th:each="authority: ${authorities}" th:text="${authority.name.replace('_', ' ')}" th:value="${authority.id}"></option>
+                        </select>
+                    </div>
+                    <a class="btn btn-light mb-3" type="button" href="/">Cancel</a>
+                    <button class="btn btn-outline-primary mb-3" type="submit">Signup</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/script-fragment"></div>
 </body>
 </html>

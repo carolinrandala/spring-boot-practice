@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserByUsername(String username) throws UserNotFoundException {
-        Optional<User> optionalUser = userRepository.findByUsername(username);
+        Optional<User> optionalUser = userRepository.findByUserName(username);
 
         if (optionalUser.isEmpty()) {
             throw new UserNotFoundException(username);

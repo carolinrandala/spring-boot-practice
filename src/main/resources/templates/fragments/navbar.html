@@ -1,3 +1,4 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="/">Study System</a>
@@ -10,18 +11,25 @@
           <a class="nav-link" aria-current="page" href="/">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/school">School</a>
+          <a class="nav-link" href="/school" sec:authorize="hasAnyRole('TEACHER', 'STUDENT')">School</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/course">Course</a>
+          <a class="nav-link" href="/course" sec:authorize="hasAnyRole('TEACHER', 'STUDENT')">Course</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/teacher">Teacher</a>
+          <a class="nav-link" href="/teacher" sec:authorize="hasAnyRole('TEACHER', 'ADMIN')">Teacher</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/student">Student</a>
+          <a class="nav-link" href="/student" sec:authorize="hasAnyRole('STUDENT', 'ADMIN')">Student</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/user" sec:authorize="hasRole('ADMIN')">User</a>
         </li>
       </ul>
+      <div sec:authorize="isAuthenticated()" class="rightContainer">
+        <a class="btn btn-warn" href="/logout" role="button">Logout</a>
+      </div>
     </div>
   </div>
 </nav>
+</html>

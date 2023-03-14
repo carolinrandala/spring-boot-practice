@@ -15,8 +15,6 @@ import static com.sda.study.springbootpractice.utils.Constants.Security.*;
 /**
  * Configuration for Security
  *
- * @author Vinod John
- * @Date 13.03.2023
  */
 @Configuration
 @EnableWebSecurity
