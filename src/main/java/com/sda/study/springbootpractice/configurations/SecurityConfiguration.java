@@ -1,6 +1,4 @@
 package com.sda.study.springbootpractice.configurations;
-
-import com.sda.study.springbootpractice.models.User;
 import com.sda.study.springbootpractice.services.implementations.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,7 +6,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -16,6 +14,9 @@ import static com.sda.study.springbootpractice.utils.Constants.Security.*;
 
 /**
  * Configuration for Security
+ *
+ * @author Vinod John
+ * @Date 13.03.2023
  */
 @Configuration
 @EnableWebSecurity
@@ -57,16 +58,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .hasRole(admin)
                 .antMatchers("/school/**")
                 .hasAnyRole(teacher, student, admin)
-                .antMatches("/course/**")
-                .hasAnyRole(student)
+                .antMatchers("/course/**")
+                .hasAnyRole(teacher)
+                .antMatchers("/student/**")
+                .hasRole(student)
                 .and()
                 .httpBasic()
                 .and()
                 .formLogin()
                 .and()
-                .logout().permitAll(false).logoutSecurity("/")
-                .and
-                .csrf.disable();
+                .logout().permitAll(false).logoutSuccessUrl("/")
+                .and()
+                .csrf().disable();
     }
-
 }
