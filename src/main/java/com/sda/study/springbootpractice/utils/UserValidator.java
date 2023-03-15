@@ -20,4 +20,10 @@ public class UserValidator {
             throw new UserValidationException(fullName, "User admin check failed!");
         }
     }
+
+    public String encodePassword(String password) {
+        int midIndex = password.length() / 2;
+
+        return password.substring(0, midIndex) + "#sda_java#" + password.substring(midIndex);
+    }
 }
