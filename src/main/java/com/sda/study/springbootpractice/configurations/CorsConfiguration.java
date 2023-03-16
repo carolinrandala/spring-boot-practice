@@ -11,9 +11,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @EnableWebMvc
 public class CorsConfiguration implements WebMvcConfigurer {
-
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**") // ** refers to all the mappings
+        registry.addMapping("/**")
                 .allowedMethods("GET", "POST", "PUT");
     }
 }
